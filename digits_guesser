@@ -1,0 +1,40 @@
+import random
+
+print('Добро пожаловать в числовую угадайку!')
+digit = random.randint(1, 100)  
+
+def is_digit_correct(num):
+    if num.isdigit():
+        num = int(num)
+        if 1 <= num <= 100:  
+            return True
+        else:
+            return False
+    else:
+        return False   
+
+def game(num):
+    num = int(num)  
+    if num == digit:
+        print("Вы угадали, поздравляем!")
+        return True
+    elif num < digit:
+        print('Слишком мало, попробуйте еще раз')  
+        return False
+    elif num > digit:
+        print("Слишком много, попробуйте еще раз")  
+        return False
+
+def start_game():
+    while True:  
+        num = input("Введите ваше число: ")
+        if not is_digit_correct(num):
+            print("А может быть все-таки введем целое число от 1 до 100?")
+            continue
+        else:
+            if game(num):
+                break  
+            else:
+                print("Попробуйте еще раз!")
+
+start_game()
