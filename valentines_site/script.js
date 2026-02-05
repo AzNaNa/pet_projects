@@ -1,46 +1,26 @@
-const card = document.getElementById("card");
 const noBtn = document.getElementById("noBtn");
 const yesBtn = document.getElementById("yesBtn");
-const noHint = document.getElementById("noHint");
 const celebration = document.getElementById("celebration");
 const confettiCanvas = document.getElementById("confettiCanvas");
 const ctx = confettiCanvas.getContext("2d");
-
-let noButtonRunning = false;
 
 function clamp(value, min, max) {
   return Math.max(min, Math.min(max, value));
 }
 
-function startNoButtonRunMode() {
-  if (noButtonRunning) {
-    return;
-  }
+function positionNoButtonRandomly() {
+  const maxX = window.innerWidth - noBtn.offsetWidth - 8;
+  const maxY = window.innerHeight - noBtn.offsetHeight - 8;
 
-  const cardRect = card.getBoundingClientRect();
-  const noRect = noBtn.getBoundingClientRect();
+  const nextX = Math.random() * maxX;
+  const nextY = Math.random() * maxY;
 
-  noBtn.classList.add("is-running");
-  noBtn.style.left = `${noRect.left - cardRect.left}px`;
-  noBtn.style.top = `${noRect.top - cardRect.top}px`;
-
-  noHint.classList.remove("hidden");
-  noButtonRunning = true;
+  noBtn.style.left = `${clamp(nextX, 8, maxX)}px`;
+  noBtn.style.top = `${clamp(nextY, 8, maxY)}px`;
 }
 
 function moveNoButtonAway() {
-  startNoButtonRunMode();
-
-  const cardRect = card.getBoundingClientRect();
-  const padding = 12;
-  const maxX = cardRect.width - noBtn.offsetWidth - padding;
-  const maxY = cardRect.height - noBtn.offsetHeight - padding;
-
-  const nextX = padding + Math.random() * (maxX - padding);
-  const nextY = padding + Math.random() * (maxY - padding);
-
-  noBtn.style.left = `${clamp(nextX, padding, maxX)}px`;
-  noBtn.style.top = `${clamp(nextY, padding, maxY)}px`;
+  positionNoButtonRandomly();
 }
 
 noBtn.addEventListener("mouseenter", moveNoButtonAway);
@@ -48,10 +28,9 @@ noBtn.addEventListener("touchstart", (event) => {
   event.preventDefault();
   moveNoButtonAway();
 });
-noBtn.addEventListener("pointerdown", (event) => {
-  event.preventDefault();
-  moveNoButtonAway();
-});
+
+window.addEventListener("resize", positionNoButtonRandomly);
+positionNoButtonRandomly();
 
 const confettiParticles = [];
 const confettiColors = ["#ff406d", "#ffd166", "#06d6a0", "#118ab2", "#f4a261", "#ffffff"];
@@ -105,6 +84,7 @@ yesBtn.addEventListener("click", () => {
   celebration.classList.remove("hidden");
   celebration.setAttribute("aria-hidden", "false");
 
+  noBtn.style.display = "none";
   yesBtn.disabled = true;
 
   confettiParticles.length = 0;

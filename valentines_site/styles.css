@@ -25,7 +25,6 @@ body {
 }
 
 .card {
-  position: relative;
   width: min(90vw, 700px);
   text-align: center;
   padding: 2rem;
@@ -43,25 +42,8 @@ h1 {
   text-wrap: balance;
 }
 
-.photo-slot {
-  margin: 1.2rem auto 0;
-  width: min(78vw, 340px);
-  aspect-ratio: 4 / 3;
-  border-radius: 18px;
-  border: 2px dashed rgba(255, 255, 255, 0.8);
-  background: rgba(255, 255, 255, 0.2);
-  overflow: hidden;
-}
-
-.photo-slot img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
 .buttons {
-  margin-top: 1.4rem;
-  min-height: 72px;
+  margin-top: 2rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -90,21 +72,12 @@ h1 {
 }
 
 .btn-no {
+  position: fixed;
   background: #eaeaea;
   color: #444;
   padding: 0.5rem 0.95rem;
   font-size: 0.95rem;
-}
-
-.btn-no.is-running {
-  position: absolute;
-  z-index: 6;
-}
-
-.no-hint {
-  margin: 0.7rem 0 0;
-  font-size: 0.86rem;
-  opacity: 0.95;
+  z-index: 5;
 }
 
 .celebration {
