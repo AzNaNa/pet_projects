@@ -12,6 +12,8 @@ const celebrationImage = document.getElementById("celebrationImage");
 const hugBtn = document.getElementById("hugBtn");
 const countdownWidget = document.getElementById("countdownWidget");
 const countdownValue = countdownWidget.querySelector(".countdown-value");
+const bgMusic = document.getElementById("bgMusic");
+const blackoutMusic = document.getElementById("blackoutMusic");
 const blackout = document.getElementById("blackout");
 const blackoutTimer = document.getElementById("blackoutTimer");
 const confettiCanvas = document.getElementById("confettiCanvas");
@@ -179,6 +181,9 @@ function startBlackoutSequence() {
   celebration.classList.add("hidden");
   confettiCanvas.classList.add("hidden");
   blackout.classList.remove("hidden");
+  bgMusic.pause();
+  bgMusic.currentTime = 0;
+  blackoutMusic.play().catch(() => {});
 
   let remaining = 10;
   blackoutTimer.textContent = String(remaining);
@@ -248,6 +253,7 @@ yesBtn.addEventListener("click", () => {
   celebration.setAttribute("aria-hidden", "false");
   yesBtn.disabled = true;
   noBtn.classList.add("hidden");
+  bgMusic.play().catch(() => {});
 });
 
 secondNoBtn.addEventListener("click", handleSecondNoClick);
