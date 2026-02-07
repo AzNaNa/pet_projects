@@ -156,11 +156,18 @@ h1 {
 .second-buttons {
   display: flex;
   gap: 0.9rem;
+  align-items: center;
 }
 
-.second-buttons .btn-yes {
+.second-buttons .btn {
   font-size: 1.1rem;
   padding: 0.65rem 1.8rem;
+}
+
+.hug-btn {
+  margin-top: 0.6rem;
+  font-size: 1rem;
+  padding: 0.65rem 1.6rem;
 }
 
 .hidden {

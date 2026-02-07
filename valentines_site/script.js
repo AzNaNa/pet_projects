@@ -3,7 +3,9 @@ const noBtn = document.getElementById("noBtn");
 const yesBtn = document.getElementById("yesBtn");
 const noHint = document.getElementById("noHint");
 const celebration = document.getElementById("celebration");
-const secondYesButtons = document.querySelectorAll(".second-yes");
+const secondYesBtn = document.getElementById("secondYes");
+const secondNoBtn = document.getElementById("secondNo");
+const hugBtn = document.getElementById("hugBtn");
 const confettiCanvas = document.getElementById("confettiCanvas");
 const ctx = confettiCanvas.getContext("2d");
 
@@ -111,15 +113,54 @@ function startMassFireworks() {
   createConfetti(360);
 }
 
+const noButtonStages = [
+  "Ты уверена?",
+  "Мне кажется ты промазала",
+  "Точно не \"Да\"?",
+  "Я все равно жду \"Да\"",
+  "Ладно, последняя попытка",
+];
+let noButtonStageIndex = 0;
+let noButtonScale = 1;
+let yesButtonScale = 1;
+
+function updateSecondButtonScales() {
+  secondNoBtn.style.transform = `scale(${noButtonScale})`;
+  secondYesBtn.style.transform = `scale(${yesButtonScale})`;
+}
+
+function handleSecondNoClick() {
+  if (secondNoBtn.disabled) {
+    return;
+  }
+
+  secondNoBtn.textContent = noButtonStages[Math.min(noButtonStageIndex, noButtonStages.length - 1)];
+  noButtonStageIndex += 1;
+
+  noButtonScale += 0.12;
+  yesButtonScale = Math.max(0.82, yesButtonScale - 0.05);
+  updateSecondButtonScales();
+
+  if (noButtonStageIndex >= noButtonStages.length) {
+    secondNoBtn.disabled = true;
+    secondNoBtn.style.cursor = "not-allowed";
+  }
+}
+
+function handleSecondYesClick() {
+  startMassFireworks();
+  hugBtn.classList.remove("hidden");
+  secondYesBtn.disabled = true;
+}
+
 yesBtn.addEventListener("click", () => {
   celebration.classList.remove("hidden");
   celebration.setAttribute("aria-hidden", "false");
   yesBtn.disabled = true;
 });
 
-secondYesButtons.forEach((button) => {
-  button.addEventListener("click", startMassFireworks);
-});
+secondNoBtn.addEventListener("click", handleSecondNoClick);
+secondYesBtn.addEventListener("click", handleSecondYesClick);
 
 window.addEventListener("resize", resizeCanvas);
 resizeCanvas();
