@@ -196,13 +196,14 @@ const noButtonStages = [
   "Точно не \"Да\"?",
   "Я все равно жду \"Да\"",
   "Ладно, последняя попытка",
+  "Клянусь, это твой последний шанс",
 ];
 let noButtonStageIndex = 0;
 let noButtonScale = 1;
 let yesButtonScale = 1;
 
 function updateSecondButtonScales() {
-  const shiftX = Math.min(120, (noButtonScale - 1) * 120);
+  const shiftX = Math.min(180, (noButtonScale - 1) * 180);
   secondNoBtn.style.transform = `scale(${noButtonScale})`;
   secondYesBtn.style.transform = `translateX(${-shiftX}px) scale(${yesButtonScale})`;
 }
@@ -219,10 +220,11 @@ function handleSecondNoClick() {
   yesButtonScale = Math.max(0.82, yesButtonScale - 0.05);
   updateSecondButtonScales();
 
-  if (noButtonStageIndex >= noButtonStages.length) {
+  if (noButtonStageIndex > noButtonStages.length) {
     startBlackoutSequence();
   }
 }
+
 
 function handleSecondYesClick() {
   startMassFireworks();
