@@ -67,13 +67,16 @@ function moveNoButtonAway() {
     hintRect.bottom - cardRect.top + padding,
   );
   const minY = Math.min(maxY, Math.max(padding, avoidZoneBottom));
+  const hintTop = hintRect.top - cardRect.top - noBtn.offsetHeight - padding;
+  const maxYAllowed = Math.min(maxY, Math.max(minY, hintTop));
 
   const nextX = padding + Math.random() * (maxX - padding);
-  const nextY = minY + Math.random() * (maxY - minY || 1);
+  const nextY = minY + Math.random() * (maxYAllowed - minY || 1);
 
   noBtn.style.left = `${clamp(nextX, padding, maxX)}px`;
-  noBtn.style.top = `${clamp(nextY, minY, maxY)}px`;
+  noBtn.style.top = `${clamp(nextY, minY, maxYAllowed)}px`;
 }
+
 
 
 
