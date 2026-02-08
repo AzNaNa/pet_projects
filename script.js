@@ -1,3 +1,7 @@
+const introModal = document.getElementById("introModal");
+
+document.body.classList.add("intro-active");
+const introBtn = document.getElementById("introBtn");
 const card = document.getElementById("card");
 const noBtn = document.getElementById("noBtn");
 const yesBtn = document.getElementById("yesBtn");
@@ -247,6 +251,11 @@ function handleSecondYesClick() {
   afterYesMedia.classList.remove("hidden");
   hugBtn.classList.remove("hidden");
 }
+
+introBtn.addEventListener("click", () => {
+  introModal.classList.add("hidden");
+  document.body.classList.remove("intro-active");
+});
 
 yesBtn.addEventListener("click", () => {
   celebration.classList.remove("hidden");
