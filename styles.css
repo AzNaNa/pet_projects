@@ -244,6 +244,10 @@ h1 {
   filter: blur(18px);
 }
 
+.intro-modal.hidden {
+  display: none;
+}
+
 .intro-modal {
   position: fixed;
   inset: 0;
